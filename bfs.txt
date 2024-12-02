@@ -1,0 +1,70 @@
+#include <stdio.h>
+#define MAX 100
+
+int arr[MAX][MAX];
+int visited[MAX];
+int queue[MAX];
+int front = 0, rear = 0;
+
+void enqueue(int item) {
+    if (rear == MAX) {
+        printf("Queue is full! Cannot enqueue %d\n", item);
+    } else {
+        queue[rear++] = item;
+    }
+}
+
+int dequeue() {
+    if (front == rear) {
+        return -1;
+    } else {
+        return queue[front++];
+    }
+}
+
+void bfsMatrix(int n, int start) {
+    enqueue(start);
+    visited[start] = 1;
+    printf("BFS Traversal: ");
+
+    while (front != rear) {
+        int v = dequeue();
+        printf("%d ", v);
+
+        for (int i = 0; i < n; i++) {
+            if (arr[v][i] == 1 && visited[i] == 0) {
+                visited[i] = 1;
+                enqueue(i);
+            }
+        }
+    }
+    printf("\n");
+}
+
+int main() {
+    int n, u, v;
+
+    printf("Enter the number of vertices: ");
+    scanf("%d", &n);
+
+    for (int i = 0; i < n; i++) {
+        visited[i] = 0;
+        for (int j = 0; j < n; j++) {
+            arr[i][j] = 0;
+        }
+    }
+
+    printf("Enter the adjacency matrix (0 for no edge, 1 for edge):\n");
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            scanf("%d", &arr[i][j]);
+        }
+    }
+
+    printf("Enter the starting vertex (0 to %d): ", n - 1);
+    scanf("%d", &u);
+
+    bfsMatrix(n, u);
+
+    return 0;
+}

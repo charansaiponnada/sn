@@ -1,0 +1,18 @@
+#include <stdio.h>
+
+int recursiveCalls = 0;
+
+int fibonacci(int n) {
+    recursiveCalls++;
+    if (n <= 1)
+        return n;
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+int main() {
+    int n = 10;
+    int result = fibonacci(n);
+    printf("Fibonacci of %d: %d\n", n, result);
+    printf("Number of recursive calls: %d\n", recursiveCalls);
+    return 0;
+}

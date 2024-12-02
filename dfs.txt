@@ -1,0 +1,48 @@
+#include <stdio.h>
+#define MAX 100
+
+int arr[MAX][MAX];
+int visited[MAX];
+
+void dfsMatrix(int n, int start) {
+    visited[start] = 1;  // Mark the starting vertex as visited
+    printf("DFS Traversal: ");
+    printf("%d ", start);  // Print the starting vertex
+
+    for (int i = 0; i < n; i++) {
+        // If there is an edge and the vertex has not been visited
+        if (arr[start][i] == 1 && visited[i] == 0) {
+            dfsMatrix(n, i);  // Recursively visit the neighbor
+        }
+    }
+    printf("\n");
+}
+
+int main() {
+    int n, u;
+
+    printf("Enter the number of vertices: ");
+    scanf("%d", &n);
+
+    // Initialize the visited array to 0 (unvisited)
+    for (int i = 0; i < n; i++) {
+        visited[i] = 0;
+    }
+
+    // Initialize the adjacency matrix
+    printf("Enter the adjacency matrix (0 for no edge, 1 for edge):\n");
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            scanf("%d", &arr[i][j]);
+        }
+    }
+
+    // Get the starting vertex
+    printf("Enter the starting vertex (0 to %d): ", n - 1);
+    scanf("%d", &u);
+
+    // Call DFS traversal from the starting vertex
+    dfsMatrix(n, u);
+
+    return 0;
+}

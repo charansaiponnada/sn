@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    int data;
+    struct node* left;
+    struct node* right;
+};
+
+struct node* newNode(int data) {
+    struct node* node = (struct node*)malloc(sizeof(struct node));
+    node->data = data;
+    node->left = NULL;
+    node->right = NULL;
+    return node;
+}
+
+int searchAVL(struct node* root, int key) {
+    if (root == NULL)
+        return 0;
+    if (root->data == key)
+        return 1;
+    if (key < root->data)
+        return searchAVL(root->left, key);
+    return searchAVL(root->right, key);
+}
+
+int main() {
+    struct node* root = newNode(10);
+    root->left = newNode(5);
+    root->right = newNode(20);
+    root->left->left = newNode(2);
+    root->left->right = newNode(8);
+
+    int key = 8;
+    if (searchAVL(root, key)) {
+        printf("Element %d is found in the AVL tree.\n", key);
+    } else {
+        printf("Element %d is not found in the AVL tree.\n", key);
+    }
+    return 0;
+}
